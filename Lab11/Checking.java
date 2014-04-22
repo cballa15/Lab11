@@ -10,6 +10,7 @@ public class Checking extends BankAccount
 
 	public void withdraw(double wAmount)
 	{
+        System.out.println("Got here");
 	    if(getBalance() + .25 < wAmount)
 	      System.out.println("Checking account withdrawal, unable to complete transaction. Balance: " + getBalance());
 	    else

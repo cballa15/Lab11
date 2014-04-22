@@ -41,18 +41,21 @@ public class Driver {
         accounts[3] = new Checking("Bill", "123", 2500);
         accounts[4] = new Checking("Jill", "123", 2500);
 
-        System.out.print("Enter an account name: ");
-        name = input.next();
-        System.out.print("Enter PIN: ");
-        pin = input.next();
+
 
         boolean found = false;
         int i = 0;
         int userNum = 0;
         while (keepGoing) {
+            //input.next();
+            System.out.print("Enter an account name: ");
+            name = input.next();
+            System.out.print("Enter PIN: ");
+            pin = input.next();
             try {
                 while (i < accounts.length && !found) {
                     if (accounts[i].verify(name, pin)) {
+                        //System.out.println("Got here");
                         found = true;
                         userNum = i;
                     } // end if
@@ -67,22 +70,23 @@ public class Driver {
             } // end try
             catch (InvalidUser iu) {
                 System.out.println(iu.getMessage());
+                //keepGoing = false;
             } // end catch
 
-            if(found) {
+            if (found) {
+                //System.out.print("Found: " + found);
+                System.out.print("Enter an amount to deposit: ");
+                accounts[userNum].deposit(input.nextDouble());
+                System.out.println("Current Balance: $" + accounts[userNum].getBalance());
 
-            System.out.print("Enter an amount to deposit: ");
-            accounts[userNum].deposit(input.nextDouble());
-            System.out.println("Current Balance: $" + accounts[userNum].getBalance());
+                System.out.print("Enter an amount to withdraw: ");
+                accounts[userNum].withdraw(input.nextDouble());
+                System.out.println("Current Balance: $" + accounts[userNum].getBalance());
 
-            System.out.print("Enter an amount to withdraw: ");
-            accounts[userNum].withdraw(input.nextDouble());
-            System.out.println("Current Balance: $" + accounts[userNum].getBalance());
-
-            System.out.println("Pick another account? (y/n)");
-            if(input.next().charAt(0) == 'n'){
-                keepGoing = false;
-            }
+                System.out.println("Pick another account? (y/n)");
+                if (input.next().charAt(0) == 'n') {
+                    keepGoing = false;
+                }
             }
         } // end while
 
